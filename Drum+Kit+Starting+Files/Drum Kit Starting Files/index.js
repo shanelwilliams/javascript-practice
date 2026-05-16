@@ -5,7 +5,25 @@ function handleClick() {
     buttons[i].addEventListener("click", function () {
       let buttonInnerHTML = this.innerHTML;
 
-      switch (buttonInnerHTML) {
+        makeSound(buttonInnerHTML)
+        buttonAnimation(buttonInnerHTML)
+    });
+  }
+}
+
+handleClick();
+
+document.addEventListener('keydown', function(event) {
+    
+    makeSound(event.key)
+
+    buttonAnimation(event.key)
+    
+})
+
+function makeSound(key) {
+
+    switch (key) {
         case "w":
           let tom1 = new Audio("sounds/tom-1.mp3");
           tom1.play();
@@ -37,14 +55,21 @@ function handleClick() {
           break;
 
           case "l":
-          let kick = new Audio("sounds/kick-bass.mp3");
-          kick.play();
+          let kickBass = new Audio("sounds/kick-bass.mp3");
+          kickBass.play();
           break;
 
-          default:
-      }
-    });
-  }
+          default: console.log(buttonInnerHTML)
+
+}
 }
 
-handleClick();
+function buttonAnimation(currentKey) {
+    let activeButton = document.querySelector('.' + currentKey)
+    activeButton.classList.add('pressed')
+
+    setTimeout(function() {
+        activeButton.classList.remove('pressed')
+    }, 100)
+
+}
